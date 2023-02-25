@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  data_lake:
+    image: mongo
+    container_name: mongo_db
+    restart: always
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: change
+    #   MONGO_INITDB_ROOT_PASSWORD: change
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb_data:/data/db
+      - ./configdb:/data/configdb
+
+  client:
+    build: ./docker/client
+    container_name: bun_js
+
+  crawler:
+    build: ./docker/crawler
+    container_name: python
